@@ -31,9 +31,19 @@ jobs:
  Render_deployment:
   runs-on: ubuntu-latest
   needs: Node-CI-pipeline
-  if: github.event_name == 'push' && github.ref == 'refs/heads/main'|| github.event_name == 'pull_request' && github.ref == 'refs/heads/main'
+  if: github.event_name == 'push' && github.ref == 'refs/heads/main'|| github.event_name == 'pull_request' && github.base_ref == 'main'
   steps:
     - name: Render deployment
       env:
        deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+      run: curl "$deploy_url"
+
+ Docker_deployment:
+  runs-on: ubuntu-latest
+  needs: Node-CI-pipeline
+  if: github.event_name == 'push' && github.ref == 'refs/heads/main'|| github.event_name == 'pull_request' && github.base_ref == 'main'
+  steps:
+    - name: Docker deployment
+      env:
+       deploy_url: ${{ secrets.RENDER_DOCKER_DEPLOY_HOOK_URL }}
       run: curl "$deploy_url"
