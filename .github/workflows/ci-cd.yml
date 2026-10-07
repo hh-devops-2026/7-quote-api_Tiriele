@@ -1,0 +1,20 @@
+name: CI for Quote of the Day API
+
+on:
+ push:
+  branches: main
+ pull_request:
+  branches: main
+
+jobs:
+ build:
+  runs-on: ubuntu-latest
+  steps:
+   - name: Check out the repository code
+     uses: actions/checkout@v7.0.1
+   - name: Install dependencies
+     run: npm install
+   - name: Check for linting issues
+     run: npm run lint
+   - name: Run tests
+     run: npm test
