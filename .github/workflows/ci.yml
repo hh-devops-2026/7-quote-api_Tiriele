@@ -3,6 +3,7 @@ name: CI for Quote of the Day API
 on:
  push:
   branches: main
+  tags: v*
  pull_request:
   branches: main
 
