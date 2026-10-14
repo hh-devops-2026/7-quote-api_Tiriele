@@ -1,0 +1,22 @@
+name: CD for Quote of the Day API
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  Render_deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Render deployment
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: curl "$deploy_url"
+
+  Docker_deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker deployment
+        env:
+          deploy_url: ${{ secrets.RENDER_DOCKER_DEPLOY_HOOK_URL }}
+        run: curl "$deploy_url"
